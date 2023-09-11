@@ -1,8 +1,9 @@
-import {View, Text, FlatList} from 'react-native'
+import { FlatList} from 'react-native'
 import {CATEGORIES} from '../data/dummy-data'
 import CategoriesGridTitle from '../components/CategoriesGridTitle'
 
 function CategoriesScreen({navigation}){
+
     function renderCategoryItem(itemData){
         function onPressHandler(){
             navigation.navigate('MealsOverview',
