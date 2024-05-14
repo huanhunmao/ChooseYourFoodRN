@@ -3,22 +3,23 @@ import { MEALS } from '../data/dummy-data'
 import MealDetails from '../components/MealDetails'
 import List from '../components/MealDetail/List'
 import SubTitle from '../components/MealDetail/SubTitle'
-import { useContext, useEffect } from 'react'
+import { useEffect } from 'react'
 import IconButton from '../components/IconButton'
-import { FavoritesContext } from '../store/context/favorite-context'
+import { useDispatch, useSelector } from 'react-redux'
 
 function MealDetailScreen({route, navigation}){
-    const favoriteMealCtx = useContext(FavoritesContext)
+    const favoriteMealIds = useSelector(state => state.favoriteMeals.ids)
+    const dispatch = useDispatch()
     const mealId = route.params.mealId
     const selectMeal = MEALS.find(meal => meal.id === mealId)
 
-    const mealIsFavorite = favoriteMealCtx.ids.includes(mealId)
+    const mealIsFavorite = favoriteMealIds.includes(mealId)
 
     function changeFavoriteStatusHandler(){
         if(mealIsFavorite){
-            favoriteMealCtx.removeFavorite(mealId)
+            dispatch.removeFavorite({id: mealId})
         }else{
-            favoriteMealCtx.addFavorite(mealId)
+            dispatch.addFavorite({id: mealId})
         }
     }
 
